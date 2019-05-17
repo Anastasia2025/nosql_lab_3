@@ -10,3 +10,10 @@ mb.runSQLQuery(`
        FROM films
        Group by Category, Rating
 `)
+3.
+db.customers.aggregate([
+    {"$unwind":"$Rentals"},
+    {"$unwind":"$Rentals.Payments"},
+    {"$group":{_id:"$_id","Amount":{$sum:"$Rentals.Payments.Amount"}}
+]
+)
